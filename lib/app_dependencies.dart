@@ -20,7 +20,7 @@ class AppDependencies extends StatelessWidget {
             ..interceptors.add(
               PrettyDioLogger(),
             )
-            ..options.baseUrl = 'http://localhost:8080',
+            ..options.baseUrl = 'http://localhost:8080/api',
         ),
       ],
       child: child,
