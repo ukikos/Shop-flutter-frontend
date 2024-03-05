@@ -24,17 +24,20 @@ class HomePage extends StatelessWidget {
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.list,
-              )
+              ),
+              label: 'Каталог',
             ),
             BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.shopping_cart,
-                )
+              icon: Icon(
+                Icons.shopping_cart,
+              ),
+              label: 'Корзина',
             ),
             BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.person,
-                )
+              icon: Icon(
+                Icons.person,
+              ),
+              label: 'Профиль',
             ),
           ],
         );

@@ -6,6 +6,7 @@ import 'package:shop/pages/cart_page/cart_page.dart';
 import 'package:shop/pages/user_page/user_page.dart';
 import 'package:shop/pages/items_page/items_page.dart';
 import 'package:shop/model/category/category.dart';
+import 'package:shop/pages/item_page/item_details_page.dart';
 
 part 'app_router.gr.dart';
 
@@ -34,6 +35,10 @@ class AppRouter extends _$AppRouter {
             AutoRoute(
               path: 'items/:id',
               page: ItemsRoute.page,
+            ),
+            AutoRoute(
+              path: 'item/:id',
+              page: ItemDetailsRoute.page,
             ),
           ],
         ),

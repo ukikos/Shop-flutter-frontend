@@ -1,7 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:shop/model/item/item.dart';
-import 'package:shop/model/item/item_of_list.dart';
-import 'package:shop/navigation/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/model/category/category.dart';

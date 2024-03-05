@@ -1,10 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:shop/model/item/item.dart';
 import 'package:shop/service/item/item_client.dart';
 import 'package:shop/util/constants.dart';
 import 'package:shop/model/item/item_of_list.dart';
+import 'package:shop/navigation/app_router.dart';
 
 class ItemsGridView extends StatefulWidget {
 
@@ -90,13 +91,18 @@ class _ItemsGridViewState extends State<ItemsGridView>{
             children: [
               AspectRatio(
                 aspectRatio: 1 / 1,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: CachedNetworkImage(
-                    imageUrl: _imageUrl(item.imageLink),
-                    placeholder: (context, url) => const CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => Image.asset(url),
-                    fit: BoxFit.fill,
+                child: GestureDetector(
+                  onTap: () => {
+                    context.router.push(ItemDetailsRoute(itemId: item.id))
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: CachedNetworkImage(
+                      imageUrl: _imageUrl(item.imageLink),
+                      placeholder: (context, url) => const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Image.asset(url),
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
               ),
@@ -113,13 +119,11 @@ class _ItemsGridViewState extends State<ItemsGridView>{
                         Text('${item.price.toString()} Р'),
                         const Spacer(),
                         Builder(builder: (context) {
-                          if (true) {
+                          if (true) { //рендер если залогинен
                             return const ElevatedButton(
                                 onPressed: null,
                                 child: Text('В корзину')
                             );
-                          } else {
-                            // если не залогинен не рендерить ничего
                           }
                         }),
                       ],

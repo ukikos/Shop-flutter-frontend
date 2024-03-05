@@ -55,6 +55,15 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const HomePage(),
       );
     },
+    ItemDetailsRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<ItemDetailsRouteArgs>(
+          orElse: () => ItemDetailsRouteArgs(itemId: pathParams.getInt('id')));
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: ItemDetailsPage(itemId: args.itemId),
+      );
+    },
     ItemsRoute.name: (routeData) {
       final args = routeData.argsAs<ItemsRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -194,6 +203,36 @@ class HomeRoute extends PageRouteInfo<void> {
   static const String name = 'HomeRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ItemDetailsPage]
+class ItemDetailsRoute extends PageRouteInfo<ItemDetailsRouteArgs> {
+  ItemDetailsRoute({
+    required int itemId,
+    List<PageRouteInfo>? children,
+  }) : super(
+          ItemDetailsRoute.name,
+          args: ItemDetailsRouteArgs(itemId: itemId),
+          rawPathParams: {'id': itemId},
+          initialChildren: children,
+        );
+
+  static const String name = 'ItemDetailsRoute';
+
+  static const PageInfo<ItemDetailsRouteArgs> page =
+      PageInfo<ItemDetailsRouteArgs>(name);
+}
+
+class ItemDetailsRouteArgs {
+  const ItemDetailsRouteArgs({required this.itemId});
+
+  final int itemId;
+
+  @override
+  String toString() {
+    return 'ItemDetailsRouteArgs{itemId: $itemId}';
+  }
 }
 
 /// generated route for
