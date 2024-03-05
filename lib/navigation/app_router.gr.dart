@@ -55,6 +55,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const HomePage(),
       );
     },
+    ItemsRoute.name: (routeData) {
+      final args = routeData.argsAs<ItemsRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: ItemsPage(
+          id: args.id,
+          category: args.category,
+        ),
+      );
+    },
     ProfileTab.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -184,6 +194,44 @@ class HomeRoute extends PageRouteInfo<void> {
   static const String name = 'HomeRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ItemsPage]
+class ItemsRoute extends PageRouteInfo<ItemsRouteArgs> {
+  ItemsRoute({
+    required int id,
+    required Category category,
+    List<PageRouteInfo>? children,
+  }) : super(
+          ItemsRoute.name,
+          args: ItemsRouteArgs(
+            id: id,
+            category: category,
+          ),
+          rawPathParams: {'id': id},
+          initialChildren: children,
+        );
+
+  static const String name = 'ItemsRoute';
+
+  static const PageInfo<ItemsRouteArgs> page = PageInfo<ItemsRouteArgs>(name);
+}
+
+class ItemsRouteArgs {
+  const ItemsRouteArgs({
+    required this.id,
+    required this.category,
+  });
+
+  final int id;
+
+  final Category category;
+
+  @override
+  String toString() {
+    return 'ItemsRouteArgs{id: $id, category: $category}';
+  }
 }
 
 /// generated route for

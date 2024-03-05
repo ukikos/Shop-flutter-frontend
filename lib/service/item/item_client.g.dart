@@ -19,12 +19,12 @@ class _ItemClient implements ItemClient {
   String? baseUrl;
 
   @override
-  Future<Pagination<Item>> getItemsByCategoryId(
-    int id,
+  Future<Pagination<ItemOfList>> getItemsByCategoryId({
+    required int id,
     int? page,
     int? size,
     String? sort,
-  ) async {
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'page': page,
@@ -34,8 +34,8 @@ class _ItemClient implements ItemClient {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<Pagination<Item>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<Pagination<ItemOfList>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -51,9 +51,9 @@ class _ItemClient implements ItemClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = Pagination<Item>.fromJson(
+    final value = Pagination<ItemOfList>.fromJson(
       _result.data!,
-      (json) => Item.fromJson(json as Map<String, dynamic>),
+      (json) => ItemOfList.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
