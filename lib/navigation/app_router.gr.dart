@@ -33,10 +33,20 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const CatalogTabPage(),
       );
     },
+    CategoriesChildRoute.name: (routeData) {
+      final args = routeData.argsAs<CategoriesChildRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: CategoriesChildPage(
+          id: args.id,
+          category: args.category,
+        ),
+      );
+    },
     CategoriesRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const CategoriesPage(),
+        child: CategoriesPage(),
       );
     },
     HomeRoute.name: (routeData) {
@@ -52,9 +62,16 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     UserRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<UserRouteArgs>(
+          orElse: () => UserRouteArgs(
+                  pageCounter: pathParams.getInt(
+                'counter',
+                1,
+              )));
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const UserPage(),
+        child: UserPage(pageCounter: args.pageCounter),
       );
     },
   };
@@ -103,6 +120,45 @@ class CatalogTab extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [CategoriesChildPage]
+class CategoriesChildRoute extends PageRouteInfo<CategoriesChildRouteArgs> {
+  CategoriesChildRoute({
+    required int id,
+    required Category category,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CategoriesChildRoute.name,
+          args: CategoriesChildRouteArgs(
+            id: id,
+            category: category,
+          ),
+          rawPathParams: {'id': id},
+          initialChildren: children,
+        );
+
+  static const String name = 'CategoriesChildRoute';
+
+  static const PageInfo<CategoriesChildRouteArgs> page =
+      PageInfo<CategoriesChildRouteArgs>(name);
+}
+
+class CategoriesChildRouteArgs {
+  const CategoriesChildRouteArgs({
+    required this.id,
+    required this.category,
+  });
+
+  final int id;
+
+  final Category category;
+
+  @override
+  String toString() {
+    return 'CategoriesChildRouteArgs{id: $id, category: $category}';
+  }
+}
+
+/// generated route for
 /// [CategoriesPage]
 class CategoriesRoute extends PageRouteInfo<void> {
   const CategoriesRoute({List<PageRouteInfo>? children})
@@ -146,14 +202,29 @@ class ProfileTab extends PageRouteInfo<void> {
 
 /// generated route for
 /// [UserPage]
-class UserRoute extends PageRouteInfo<void> {
-  const UserRoute({List<PageRouteInfo>? children})
-      : super(
+class UserRoute extends PageRouteInfo<UserRouteArgs> {
+  UserRoute({
+    int pageCounter = 1,
+    List<PageRouteInfo>? children,
+  }) : super(
           UserRoute.name,
+          args: UserRouteArgs(pageCounter: pageCounter),
+          rawPathParams: {'counter': pageCounter},
           initialChildren: children,
         );
 
   static const String name = 'UserRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<UserRouteArgs> page = PageInfo<UserRouteArgs>(name);
+}
+
+class UserRouteArgs {
+  const UserRouteArgs({this.pageCounter = 1});
+
+  final int pageCounter;
+
+  @override
+  String toString() {
+    return 'UserRouteArgs{pageCounter: $pageCounter}';
+  }
 }

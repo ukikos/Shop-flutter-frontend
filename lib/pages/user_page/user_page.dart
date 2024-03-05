@@ -1,9 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:shop/navigation/app_router.dart';
 
 @RoutePage()
 class UserPage extends StatelessWidget {
-  const UserPage({super.key});
+  const UserPage({@PathParam('counter') this.pageCounter = 1});
+
+  final int pageCounter;
 
   @override
   Widget build(BuildContext context) {
@@ -12,11 +15,23 @@ class UserPage extends StatelessWidget {
         title: const Text('User title'),
         centerTitle: true,
       ),
-      body: const SafeArea(
-        child: Center(
-          child: Text(
-              'User page body'
-          ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Center(
+              child: Text(
+                  'User page body $pageCounter'
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () => {
+                context.router.push(UserRoute(pageCounter: pageCounter + 1))
+              },
+              child:  Text(
+                'Go to page ${pageCounter + 1}'
+              ),
+            )
+          ],
         ),
       ),
     );

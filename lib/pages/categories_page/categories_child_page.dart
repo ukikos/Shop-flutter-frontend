@@ -1,0 +1,122 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:shop/navigation/app_router.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop/model/category/category.dart';
+import 'package:shop/service/category/category_client.dart';
+import 'package:shop/util/constants.dart';
+
+@RoutePage()
+class CategoriesChildPage extends StatefulWidget {
+
+  const CategoriesChildPage({
+    @PathParam('id') required this.id,
+    required this.category
+  });
+
+  final int id;
+  final Category category;
+
+  @override
+  State<StatefulWidget> createState() => _CategoriesChildPageState();
+}
+
+class _CategoriesChildPageState extends State<CategoriesChildPage> {
+
+  CategoryClient get categoryClient => context.read();
+
+  Future<List<Category>> _loadCategories() async {
+    try {
+      final categories = await categoryClient.getCategoriesByParentId(
+          widget.id);
+      return categories;
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+    return List<Category>.empty();
+  }
+
+  String _imageUrl(String? url) {
+    return (url != null) ? '${Constants.imgBaseUrl}?link=$url' : Constants
+        .imgPlaceholder;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.category.name),
+        centerTitle: true,
+      ),
+      body: SafeArea(
+        child: FutureBuilder<List<Category>>(
+            future: _loadCategories(),
+            builder: (context, snapshot) {
+              final categories = snapshot.data;
+              if (categories == null) {
+                return const Center(
+                  child: CupertinoActivityIndicator(),
+                );
+              }
+              return ListView.builder(
+                itemCount: categories.length,
+                itemBuilder: (context, index) {
+                  final category = categories[index];
+                  String url = _imageUrl(category.imageLink);
+                  return Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () => {
+                          context.router.push(CategoriesChildRoute(id: category.id, category: category))
+                        },
+                        child: Container(
+                          color: Colors.white,
+                          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                          height: 100,
+                          width: double.maxFinite,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: CachedNetworkImage(
+                                  imageUrl: url,
+                                  placeholder: (context, url) => const CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) => Image.asset(url),
+                                ),
+                              ),
+                              const SizedBox(
+                                  width: 10
+                              ),
+                              Expanded(
+                                  flex: 3,
+                                  child: Text(category.name)
+                              ),
+                              const Spacer(),
+                              const Icon(
+                                Icons.navigate_next,
+                                color: Colors.black,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                        height: 10,
+                        thickness: 0.6,
+                        indent: 20,
+                        endIndent: 20,
+                        color: Colors.black45,
+                      ),
+                    ],
+                  );
+                },
+              );
+            }
+        ),
+      ),
+    );
+  }
+}
