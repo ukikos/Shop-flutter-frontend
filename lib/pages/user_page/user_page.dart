@@ -107,7 +107,9 @@ class _UserPageState extends State<UserPage> {
                         style: ElevatedButton.styleFrom(
                             minimumSize: Size(200, 50)
                         ),
-                        onPressed: null,
+                        onPressed: () {
+                          context.router.push(RegisterRoute());
+                        },
                         child: Text('Зарегистрироваться'),
                       ),
                     ),
