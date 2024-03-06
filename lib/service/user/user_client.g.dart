@@ -19,7 +19,7 @@ class _UserClient implements UserClient {
   String? baseUrl;
 
   @override
-  Future<User> getUserByUserId(String id) async {
+  Future<User> getUserByUserId(int id) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -32,7 +32,7 @@ class _UserClient implements UserClient {
     )
             .compose(
               _dio.options,
-              '/categories/${id}',
+              '/users/id/${id}',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -59,7 +59,7 @@ class _UserClient implements UserClient {
     )
             .compose(
               _dio.options,
-              '/categories/${email}',
+              '/users/id/${email}',
               queryParameters: queryParameters,
               data: _data,
             )

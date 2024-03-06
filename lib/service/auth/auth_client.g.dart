@@ -22,13 +22,15 @@ class _AuthClient implements AuthClient {
   Future<AccessToken> register(RegisterRequest request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
+    _headers.removeWhere((k, v) => v == null);
     final _data = request;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<AccessToken>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
+      contentType: 'application/json',
     )
             .compose(
               _dio.options,
@@ -49,13 +51,15 @@ class _AuthClient implements AuthClient {
   Future<AccessToken> login(LoginRequest request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'Content-Type': 'application/json'};
+    _headers.removeWhere((k, v) => v == null);
     final _data = request;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<AccessToken>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
+      contentType: 'application/json',
     )
             .compose(
               _dio.options,

@@ -113,12 +113,18 @@ class _CartPageState extends State<CartPage> {
                                                   children: [
                                                     Spacer(),
                                                     ElevatedButton(
-                                                      onPressed: () => client.remove(id),
-                                                      child: Text('-'),
+                                                      onPressed: () => client.remove(id, item.price),
+                                                      style: ElevatedButton.styleFrom(
+                                                        backgroundColor: Colors.red,
+                                                      ),
+                                                      child: Container(
+                                                        margin: EdgeInsets.symmetric(horizontal: 5),
+                                                          child: Text('-')
+                                                      ),
                                                     ),
                                                     Text('$count'),
                                                     ElevatedButton(
-                                                      onPressed: () => client.add(id),
+                                                      onPressed: () => client.add(id, item.price),
                                                       child: Text('+'),
                                                     ),
                                                     Spacer(),
@@ -139,9 +145,14 @@ class _CartPageState extends State<CartPage> {
                   ),
                   Container(
                     margin: EdgeInsets.all(10),
-                    child: ElevatedButton(
-                      onPressed: null,
-                      child: Text('Оформить заказ'),
+                    child: Column(
+                      children: [
+                        Text('Итого: ${client.sum.toString()} Р'),
+                        ElevatedButton(
+                          onPressed: null,
+                          child: Text('Оформить заказ'),
+                        )
+                      ],
                     ),
                   ),
                 ],

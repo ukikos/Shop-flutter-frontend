@@ -74,6 +74,12 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    LoginRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: LoginPage(),
+      );
+    },
     ProfileTab.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -81,16 +87,9 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     UserRoute.name: (routeData) {
-      final pathParams = routeData.inheritedPathParams;
-      final args = routeData.argsAs<UserRouteArgs>(
-          orElse: () => UserRouteArgs(
-                  pageCounter: pathParams.getInt(
-                'counter',
-                1,
-              )));
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: UserPage(pageCounter: args.pageCounter),
+        child: UserPage(),
       );
     },
   };
@@ -274,6 +273,20 @@ class ItemsRouteArgs {
 }
 
 /// generated route for
+/// [LoginPage]
+class LoginRoute extends PageRouteInfo<void> {
+  const LoginRoute({List<PageRouteInfo>? children})
+      : super(
+          LoginRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'LoginRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [ProfileTabPage]
 class ProfileTab extends PageRouteInfo<void> {
   const ProfileTab({List<PageRouteInfo>? children})
@@ -289,29 +302,14 @@ class ProfileTab extends PageRouteInfo<void> {
 
 /// generated route for
 /// [UserPage]
-class UserRoute extends PageRouteInfo<UserRouteArgs> {
-  UserRoute({
-    int pageCounter = 1,
-    List<PageRouteInfo>? children,
-  }) : super(
+class UserRoute extends PageRouteInfo<void> {
+  const UserRoute({List<PageRouteInfo>? children})
+      : super(
           UserRoute.name,
-          args: UserRouteArgs(pageCounter: pageCounter),
-          rawPathParams: {'counter': pageCounter},
           initialChildren: children,
         );
 
   static const String name = 'UserRoute';
 
-  static const PageInfo<UserRouteArgs> page = PageInfo<UserRouteArgs>(name);
-}
-
-class UserRouteArgs {
-  const UserRouteArgs({this.pageCounter = 1});
-
-  final int pageCounter;
-
-  @override
-  String toString() {
-    return 'UserRouteArgs{pageCounter: $pageCounter}';
-  }
+  static const PageInfo<void> page = PageInfo<void>(name);
 }

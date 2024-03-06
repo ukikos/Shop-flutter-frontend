@@ -7,6 +7,7 @@ import 'package:shop/service/cart/cart_client.dart';
 import 'package:shop/service/category/category_client.dart';
 import 'package:shop/service/item/item_client.dart';
 import 'package:shop/service/user/user_client.dart';
+import 'package:shop/util/dio_interceptor/token_interceptor.dart';
 
 class AppDependencies extends StatelessWidget {
   const AppDependencies({
@@ -24,6 +25,9 @@ class AppDependencies extends StatelessWidget {
           create: (context) => Dio()
             ..interceptors.add(
               PrettyDioLogger(),
+            )
+            ..interceptors.add(
+              TokenInterceptor(),
             )
             ..options.baseUrl = 'http://localhost:8080/api',
         ),

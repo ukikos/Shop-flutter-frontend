@@ -7,6 +7,7 @@ import 'package:shop/pages/user_page/user_page.dart';
 import 'package:shop/pages/items_page/items_page.dart';
 import 'package:shop/model/category/category.dart';
 import 'package:shop/pages/item_page/item_details_page.dart';
+import 'package:shop/pages/auth_page/login_page.dart';
 
 part 'app_router.gr.dart';
 
@@ -57,10 +58,14 @@ class AppRouter extends _$AppRouter {
           path: 'profile-tab',
           page: ProfileTab.page,
           children: [
-            RedirectRoute(path: '', redirectTo: 'user/1'),
             AutoRoute(
-              path: 'user/:counter',
+              initial: true,
+              path: 'user',
               page: UserRoute.page,
+            ),
+            AutoRoute(
+              path: 'login',
+              page: LoginRoute.page,
             ),
           ],
         ),

@@ -8,9 +8,9 @@ part 'user_client.g.dart';
 abstract class UserClient {
   factory UserClient(Dio dio, {String baseUrl}) = _UserClient;
 
-  @GET('/categories/{id}')
-  Future<User> getUserByUserId(@Path('id') String id);
+  @GET('/users/id/{id}')
+  Future<User> getUserByUserId(@Path('id') int id);
 
-  @GET('/categories/{email}')
+  @GET('/users/id/{email}')
   Future<User> getUserByEmail(@Path('email') String email);
 }

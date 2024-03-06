@@ -128,7 +128,7 @@ class _ItemsGridViewState extends State<ItemsGridView>{
                                   builder: (context, client, child) {
                                     if (!client.items.containsKey(item.id)) {
                                       return ElevatedButton(
-                                        onPressed: () => client.add(item.id),
+                                        onPressed: () => client.add(item.id, item.price),
                                         child: const Icon(Icons.add_shopping_cart),
                                       );
                                     } else {
@@ -141,6 +141,9 @@ class _ItemsGridViewState extends State<ItemsGridView>{
                                                     ]
                                                 )
                                             ),
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.green,
+                                        ),
                                         child: const Icon(Icons.shopping_cart_checkout),
                                       );
                                     }

@@ -105,13 +105,14 @@ class _ItemDetailsPage extends State<ItemDetailsPage>{
                                   style: ElevatedButton.styleFrom(
                                     minimumSize: const Size.fromHeight(40),
                                   ),
-                                  onPressed: () => client.add(item.id),
+                                  onPressed: () => client.add(item.id, item.price),
                                   child: const Icon(Icons.add_shopping_cart),
                                 );
                               } else {
                                 return ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     minimumSize: const Size.fromHeight(40),
+                                    backgroundColor: Colors.green,
                                   ),
                                   onPressed: () => context.router.navigate(
                                       const CartTab(
