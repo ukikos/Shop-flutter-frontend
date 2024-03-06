@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/model/category/category.dart';
 import 'package:shop/pages/items_page/widgets/items_grid_view.dart';
+import 'package:shop/service/cart/cart_client.dart';
 import 'package:shop/service/item/item_client.dart';
 
 @RoutePage()
@@ -22,6 +23,7 @@ class ItemsPage extends StatefulWidget {
 class _ItemsPageState extends State<ItemsPage> {
 
   ItemClient get itemClient => context.read();
+  CartClient get cartClient => context.read();
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ class _ItemsPageState extends State<ItemsPage> {
       body: SafeArea(
         child: ItemsGridView(
           itemClient: itemClient,
+          cartClient: cartClient,
           categoryId: widget.id,
           size: 10,
           sort: null,

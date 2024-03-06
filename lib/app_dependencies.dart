@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shop/service/auth/auth_client.dart';
+import 'package:shop/service/cart/cart_client.dart';
 import 'package:shop/service/category/category_client.dart';
 import 'package:shop/service/item/item_client.dart';
 import 'package:shop/service/user/user_client.dart';
@@ -50,6 +51,9 @@ class AppDependencies extends StatelessWidget {
               context.read(),
             )
         ),
+        ChangeNotifierProvider(
+            create: (context) => CartClient(),
+        )
       ],
       child: child,
     );

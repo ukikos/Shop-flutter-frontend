@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/model/item/item.dart';
+import 'package:shop/navigation/app_router.dart';
+import 'package:shop/service/cart/cart_client.dart';
 import 'package:shop/service/item/item_client.dart';
 import 'package:shop/util/constants.dart';
 
@@ -76,7 +78,7 @@ class _ItemDetailsPage extends State<ItemDetailsPage>{
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.symmetric(horizontal: 20),
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
                         alignment: Alignment.centerLeft,
                         child: Text(
                           item.name,
@@ -87,26 +89,45 @@ class _ItemDetailsPage extends State<ItemDetailsPage>{
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.symmetric(horizontal: 20),
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
                         alignment: Alignment.centerLeft,
                         child: Text('${item.price.toString()} Р'),
                       ),
                       Container(
                         width: double.infinity,
-                        margin: EdgeInsets.all(20),
+                        margin: const EdgeInsets.all(20),
                         child: ButtonTheme(
                           minWidth: double.infinity,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: Size.fromHeight(40),
-                            ),
-                            onPressed: null,
-                            child: Text('В корзину'),
+                          child: Consumer<CartClient>(
+                            builder: (context, client, child) {
+                              if (!client.items.containsKey(item.id)) {
+                                return ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    minimumSize: const Size.fromHeight(40),
+                                  ),
+                                  onPressed: () => client.add(item.id),
+                                  child: const Icon(Icons.add_shopping_cart),
+                                );
+                              } else {
+                                return ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    minimumSize: const Size.fromHeight(40),
+                                  ),
+                                  onPressed: () => context.router.navigate(
+                                      const CartTab(
+                                        children: [
+                                          CartRoute(),
+                                        ]
+                                      )),
+                                  child: const Icon(Icons.shopping_cart_checkout),
+                                );
+                              }
+                            },
                           ),
                         ),
                       ),
                       ConstrainedBox(
-                        constraints: BoxConstraints(
+                        constraints: const BoxConstraints(
                           maxHeight: 200,
                           minHeight: 56.0,
                         ),
@@ -115,7 +136,7 @@ class _ItemDetailsPage extends State<ItemDetailsPage>{
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return Container(
-                              margin: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(
                                 horizontal: 20,
                                 vertical: 5,
                               ),
