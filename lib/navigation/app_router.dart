@@ -9,6 +9,8 @@ import 'package:shop/model/category/category.dart';
 import 'package:shop/pages/item_page/item_details_page.dart';
 import 'package:shop/pages/auth_page/login_page.dart';
 import 'package:shop/pages/auth_page/register_page.dart';
+import 'package:shop/pages/onboarding_page/onboarding_page.dart';
+import 'package:shop/navigation/guards/onboarding_guard.dart';
 
 part 'app_router.gr.dart';
 
@@ -17,8 +19,10 @@ class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
     AutoRoute(
-      path: '/',
+      path: '/app',
       page: HomeRoute.page,
+      initial: true,
+      guards: [OnboardingGuard()],
       children: [
         AutoRoute(
           path: 'catalog-tab',
@@ -75,6 +79,10 @@ class AppRouter extends _$AppRouter {
           ],
         ),
       ],
+    ),
+    AutoRoute(
+      path: '/onboarding',
+      page: OnboardingRoute.page,
     )
   ];
 }
