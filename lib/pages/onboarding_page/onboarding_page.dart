@@ -12,6 +12,9 @@ class OnboardingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return OnBoardingSlider(
       finishButtonText: 'Регистрация',
+      finishButtonStyle: FinishButtonStyle(
+        backgroundColor: Colors.black,
+      ),
       onFinish: () async {
         final router = context.router;
         SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -30,7 +33,9 @@ class OnboardingPage extends StatelessWidget {
           ]);
         }
       },
-      skipTextButton: const Text('Пропустить'),
+      skipTextButton: const Text('Пропустить',
+        style: TextStyle(color: Colors.black),
+      ),
       trailing: const Text('Войти'),
       trailingFunction: () async {
         final router = context.router;
@@ -52,6 +57,7 @@ class OnboardingPage extends StatelessWidget {
       },
       totalPage: 3,
       headerBackgroundColor: Colors.white,
+      pageBackgroundColor: Colors.lightBlueAccent,
       background: [
         Image.asset(
           'assets/images/onboarding.png',
